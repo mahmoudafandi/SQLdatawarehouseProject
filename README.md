@@ -7,4 +7,4 @@ A **Data Warehouse (DWH)** built using **SQL Server** follows a structured appro
 
 Consumers, such as **BI tools, ad-hoc SQL queries, and Machine Learning models**, access the **Gold layer** for insights, making the DWH a powerful platform for decision-making. 🚀
 
-![Uploading archi diagram.png…]()
+![archi diagram](https://github.com/user-attachments/assets/b748348a-2f22-4ff8-b22a-9d8f8e1e1895)
