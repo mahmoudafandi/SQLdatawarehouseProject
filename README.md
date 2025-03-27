@@ -8,7 +8,8 @@ This SQL Data Warehouse (DWH) project is designed to integrate data from multipl
 The project implements an **ETL pipeline** that processes data from source systems and transforms it into a structured format for analytics and reporting.
 
 ### **1. Data Flow Overview**
-![Data Flow](./mnt/data/Data%20flow.png)
+![Data flow](https://github.com/user-attachments/assets/fec3d88f-ad40-42b0-b909-09d47c0a5fc0)
+
 
 - **Sources**: Data is extracted from **CRM** and **ERP** systems.
 - **Bronze Layer**: Stores raw data from source systems without transformations.
@@ -20,7 +21,7 @@ The project implements an **ETL pipeline** that processes data from source syste
 The data warehouse follows a **star schema** design for optimized querying and reporting.
 
 ### **2. Star Schema Structure**
-![Star Schema](./mnt/data/star%20schema.png)
+![star schema](https://github.com/user-attachments/assets/246952fc-e002-4fc0-bc7f-3bb4a867b317)
 
 - **Fact Table**: `gold_fact_sales`
   - Stores transactional sales data.
@@ -34,7 +35,8 @@ The data warehouse follows a **star schema** design for optimized querying and r
 The integration of CRM and ERP data is achieved through well-defined **joins and relationships**.
 
 ### **3. Data Integration Flow**
-![Integration Flow](./mnt/data/integration%20flow.png)
+![integration flow](https://github.com/user-attachments/assets/95efec77-4ca6-4b38-8bc1-907b335a26e8)
+
 
 - **Customer Data Integration**: Combines CRM customer info (`crm_cust_info`) with ERP customer details (`erp_CUST_AZ12`) and location (`erp_LOC_A101`).
 - **Product Data Integration**: Links CRM product information (`crm_prd_info`) with ERP product category (`erp_PX_CAT_G1V2`).
