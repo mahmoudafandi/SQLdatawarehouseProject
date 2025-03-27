@@ -1,25 +1,30 @@
-/*
-=============================================================
-SQL Script: Create Bronze Schema Tables
-=============================================================
-Description:
-- This script creates tables in the `bronze` schema for CRM, ERP, 
-  and sales data.
-- If a table already exists, it is dropped before creating a new one.
-- Implements data constraints such as `CHECK` constraints for gender 
-  and marital status.
+/***************************************************************************************************
+-- Script: Bronze Layer Table Creation  
+-- Description:  
+--   This script creates the Bronze layer tables, which serve as the raw data staging area.  
+--   The Bronze layer holds unprocessed and minimally transformed data from various sources.  
+--  
+-- Key Features:  
+--   - Drops tables if they already exist to ensure a fresh structure.  
+--   - Defines data types appropriate for staging raw data.  
+--   - Ensures compatibility for further processing in the Silver layer.  
+--   - Maintains referential integrity by organizing data into logical tables.  
+--  
+-- Tables Created:  
+--   - bronze.crm_cust_info: Holds customer details from CRM.  
+--   - bronze.crm_prd_info: Contains product information from CRM.  
+--   - bronze.crm_sales_details: Stores raw sales transaction details.  
+--   - bronze.erp_CUST_AZ12: Contains ERP system customer information.  
+--   - bronze.erp_LOC_A101: Stores customer location details.  
+--   - bronze.erp_PX_CAT_G1V2: Contains product category mappings.  
+--  
+-- Note:  
+--   - INT fields are used for IDs and numeric values where applicable.  
+--   - NVARCHAR is used for text-based fields to support variable-length data.  
+--   - Date and datetime fields are used to capture time-sensitive data.  
+***************************************************************************************************/
 
-Schema:
-- **bronze.crm_cust_info**: Stores customer personal details.
-- **bronze.crm_prd_info**: Stores product-related information.
-- **bronze.crm_sales_details**: Contains sales transaction details.
-- **bronze.erp_CUST_AZ12**: Stores customer records from ERP system.
-- **bronze.erp_LOC_A101**: Stores customer location data.
-- **bronze.erp_PX_CAT_G1V2**: Stores product category details.
-=============================================================
-*/
-
--- Drop table if it exists before creating a new one
+-- Drop and Create CRM Customer Information Table
 IF OBJECT_ID('bronze.crm_cust_info', 'U') IS NOT NULL  
     DROP TABLE bronze.crm_cust_info;  
 CREATE TABLE bronze.crm_cust_info(
@@ -27,11 +32,12 @@ CREATE TABLE bronze.crm_cust_info(
     cst_key NVARCHAR(50),
     cst_firstname NVARCHAR(50),
     cst_lastname NVARCHAR(50),
-    cst_marital_status VARCHAR(1) CHECK (cst_marital_status IN ('M', 'S')),
-    cst_gndr VARCHAR(1) CHECK (cst_gndr IN ('M', 'F')),
+    cst_marital_status NVARCHAR(50),
+    cst_gndr NVARCHAR(50),
     cst_create_date DATE
 );
 
+-- Drop and Create CRM Product Information Table
 IF OBJECT_ID('bronze.crm_prd_info', 'U') IS NOT NULL  
     DROP TABLE bronze.crm_prd_info;  
 CREATE TABLE bronze.crm_prd_info(
@@ -40,10 +46,11 @@ CREATE TABLE bronze.crm_prd_info(
     prd_nm NVARCHAR(50),
     prd_cost INT,
     prd_line NVARCHAR(50),
-    prd_start_dt DATE,
-    prd_end_dt DATE  
+    prd_start_dt DATETIME,
+    prd_end_dt DATETIME  
 );
 
+-- Drop and Create CRM Sales Details Table
 IF OBJECT_ID('bronze.crm_sales_details', 'U') IS NOT NULL  
     DROP TABLE bronze.crm_sales_details;  
 CREATE TABLE bronze.crm_sales_details(
@@ -58,6 +65,7 @@ CREATE TABLE bronze.crm_sales_details(
     sls_price INT
 );
 
+-- Drop and Create ERP Customer Data Table
 IF OBJECT_ID('bronze.erp_CUST_AZ12', 'U') IS NOT NULL  
     DROP TABLE bronze.erp_CUST_AZ12;  
 CREATE TABLE bronze.erp_CUST_AZ12(
@@ -66,6 +74,7 @@ CREATE TABLE bronze.erp_CUST_AZ12(
     GEN NVARCHAR(50)
 );
 
+-- Drop and Create ERP Location Data Table
 IF OBJECT_ID('bronze.erp_LOC_A101', 'U') IS NOT NULL  
     DROP TABLE bronze.erp_LOC_A101;  
 CREATE TABLE bronze.erp_LOC_A101(
@@ -73,6 +82,7 @@ CREATE TABLE bronze.erp_LOC_A101(
     CNTRY NVARCHAR(50)
 );
 
+-- Drop and Create ERP Product Category Table
 IF OBJECT_ID('bronze.erp_PX_CAT_G1V2', 'U') IS NOT NULL  
     DROP TABLE bronze.erp_PX_CAT_G1V2;  
 CREATE TABLE bronze.erp_PX_CAT_G1V2(
@@ -81,4 +91,5 @@ CREATE TABLE bronze.erp_PX_CAT_G1V2(
     SUBCAT NVARCHAR(50),
     MAINTENANCE NVARCHAR(50)
 );
+
 
